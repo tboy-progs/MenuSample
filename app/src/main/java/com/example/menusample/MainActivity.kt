@@ -17,4 +17,23 @@ class MainActivity : AppCompatActivity() {
             insets
         }
     }
+
+    private fun createTeishokuList(): MutableList<MutableMap<String, Any>> {
+        val menuList: MutableList<MutableMap<String, Any>> = mutableListOf()
+        var menu = mutableMapOf<String, Any>(
+            "name" to "唐揚げ定食",
+            "price" to 800,
+            "desc" to "若鶏の唐揚げにサラダ、ご飯、お味噌汁がつきます。"
+        )
+        menuList.add(menu)
+
+        menu = mutableMapOf<String, Any>(
+            "name" to "ハンバーグ定食",
+            "price" to 850,
+            "desc" to "手ごねハンバーグにサラダ、ご飯、お味噌汁がつきます。"
+        )
+        menuList.add(menu)
+
+        return menuList
+    }
 }
