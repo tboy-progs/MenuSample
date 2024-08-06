@@ -1,6 +1,9 @@
 package com.example.menusample
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -35,5 +38,19 @@ class MainActivity : AppCompatActivity() {
         menuList.add(menu)
 
         return menuList
+    }
+
+    private inner class ListItemClickListener : AdapterView.OnItemClickListener {
+        override fun onItemClick(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+            val item = parent.getItemAtPosition(position) as MutableMap<String, Any>
+            val menuName = item["name"] as String
+            val menuPrice = item["price"] as Int
+
+            val intentToMenuThanks = Intent(this@MainActivity, MenuThanksActivity::class.java)
+            intentToMenuThanks.putExtra("menuName", menuName)
+            intentToMenuThanks.putExtra("menuPrice", "${menuPrice}円")
+
+            startActivity(intentToMenuThanks)
+        }
     }
 }
