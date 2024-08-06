@@ -4,21 +4,35 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ListView
+import android.widget.SimpleAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+    private var _menuList: MutableList<MutableMap<String, Any>> = mutableListOf()
+    private val _from = arrayOf("name", "price")
+    private val _to = intArrayOf(R.id.tvMenuNameRow, R.id.tvMenuPriceRow)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.lvMenu)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        _menuList = createTeishokuList()
+
+        val lvMenu = findViewById<ListView>(R.id.lvMenu)
+        val adapter = SimpleAdapter(this@MainActivity, _menuList, R.layout.row, _from, _to)
+
+        lvMenu.adapter = adapter
+        lvMenu.onItemClickListener = ListItemClickListener()
     }
 
     private fun createTeishokuList(): MutableList<MutableMap<String, Any>> {
