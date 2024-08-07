@@ -2,6 +2,7 @@ package com.example.menusample
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
@@ -66,5 +67,10 @@ class MainActivity : AppCompatActivity() {
 
             startActivity(intentToMenuThanks)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_options_menu_list, menu)
+        return true
     }
 }
