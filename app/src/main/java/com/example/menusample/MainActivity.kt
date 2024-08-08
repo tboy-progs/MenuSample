@@ -55,6 +55,18 @@ class MainActivity : AppCompatActivity() {
         return menuList
     }
 
+    private fun createCurryList:MutableList<MutableMap<String, Any>>{
+        val menuList:MutableList<MutableMap<String, Any>> = mutableListOf()
+
+        var menu = mutableMapOf<String, Any>("name" to "ビーフカレー", "price" to 520, "desc" to "特製スパイスをきかせた国産ビーフのカレー。")
+        menuList.add(menu)
+
+        menu = mutableMapOf<String, Any>("name" to "ポークカレー", "price" to 420, "desc" to "特製スパイスをきかせた国産ポークのカレー。")
+        menuList.add(menu)
+
+        return menuList
+    }
+
     private inner class ListItemClickListener : AdapterView.OnItemClickListener {
         override fun onItemClick(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
             val item = parent.getItemAtPosition(position) as MutableMap<String, Any>
