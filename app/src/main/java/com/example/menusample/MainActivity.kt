@@ -3,6 +3,7 @@ package com.example.menusample
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
@@ -55,13 +56,21 @@ class MainActivity : AppCompatActivity() {
         return menuList
     }
 
-    private fun createCurryList:MutableList<MutableMap<String, Any>>{
-        val menuList:MutableList<MutableMap<String, Any>> = mutableListOf()
+    private fun createCurryList(): MutableList<MutableMap<String, Any>> {
+        val menuList: MutableList<MutableMap<String, Any>> = mutableListOf()
 
-        var menu = mutableMapOf<String, Any>("name" to "ビーフカレー", "price" to 520, "desc" to "特製スパイスをきかせた国産ビーフのカレー。")
+        var menu = mutableMapOf<String, Any>(
+            "name" to "ビーフカレー",
+            "price" to 520,
+            "desc" to "特製スパイスをきかせた国産ビーフのカレー。"
+        )
         menuList.add(menu)
 
-        menu = mutableMapOf<String, Any>("name" to "ポークカレー", "price" to 420, "desc" to "特製スパイスをきかせた国産ポークのカレー。")
+        menu = mutableMapOf<String, Any>(
+            "name" to "ポークカレー",
+            "price" to 420,
+            "desc" to "特製スパイスをきかせた国産ポークのカレー。"
+        )
         menuList.add(menu)
 
         return menuList
@@ -84,5 +93,28 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_options_menu_list, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var returnVal = true
+
+        when (item.itemId) {
+            R.id.menuListOptionTeishoku ->
+                _menuList = createTeishokuList()
+
+            R.id.menuListOptionCurry ->
+                _menuList = createCurryList()
+
+            else ->
+                returnVal = super.onOptionsItemSelected(item)
+        }
+
+        val lvMenu = findViewById<ListView>(R.id.lvMenu)
+        val adapter = SimpleAdapter(
+            this@MainActivity, _menuList, R.layout.row, _from, _to
+        )
+
+        lvMenu.adapter = adapter
+        return returnVal
     }
 }
