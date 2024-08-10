@@ -82,14 +82,7 @@ class MainActivity : AppCompatActivity() {
     private inner class ListItemClickListener : AdapterView.OnItemClickListener {
         override fun onItemClick(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
             val item = parent.getItemAtPosition(position) as MutableMap<String, Any>
-            val menuName = item["name"] as String
-            val menuPrice = item["price"] as Int
-
-            val intentToMenuThanks = Intent(this@MainActivity, MenuThanksActivity::class.java)
-            intentToMenuThanks.putExtra("menuName", menuName)
-            intentToMenuThanks.putExtra("menuPrice", "${menuPrice}円")
-
-            startActivity(intentToMenuThanks)
+            order(item)
         }
     }
 
@@ -129,5 +122,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreateContextMenu(menu, view, menuInfo)
         menuInflater.inflate(R.menu.menu_context_menu_list, menu)
         menu.setHeaderTitle(R.string.menu_list_context_header)
+    }
+
+    private fun order(menu: MutableMap<String, Any>) {
+        val menuName = menu["name"] as String
+        val menuPrice = menu["price"] as Int
+
+        val intentToMenuThanks = Intent(this@MainActivity, MenuThanksActivity::class.java)
+        intentToMenuThanks.putExtra("menuName", menuName)
+        intentToMenuThanks.putExtra("menuPrice", "${menuPrice}円")
+
+        startActivity(intentToMenuThanks)
     }
 }
